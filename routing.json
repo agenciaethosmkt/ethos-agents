@@ -1,0 +1,72 @@
+{
+  "_comment": "Ethos Agents — Routing Table. Atualizar ao adicionar novos agentes.",
+
+  "meta": {
+    "model": "claude-opus-4-6",
+    "claude_user_id": 101151431,
+    "trigger_status": "em andamento",
+    "completion_status": "em revisão",
+    "missing_info_status": "em alteração & ajustes",
+    "idempotency_tag": "agente-processado"
+  },
+
+  "spaces": {
+    "90170774471": {
+      "name": "Marketing",
+      "routing_type": "by_folder",
+      "folder_routing": {
+        "Performance & Growth":  "Sobral",
+        "Gestão de Campanhas":   "Sobral",
+        "Automações":            "Sobral",
+        "Estratégia":            "Sobral",
+        "Produção de Conteúdo":  "routing_by_list",
+        "Desenvolvimento Web":   "LandingPage"
+      },
+      "list_routing": {
+        "Processo de Copywriting":              "Ogilvy",
+        "Linha Editorial":                      "Ogilvy",
+        "Processo de Design & Criação":         "Kizo",
+        "Agendamentos, Publicações & Disparos": "Kizo",
+        "Planejamentos & Cronogramas":          "Kizo"
+      },
+      "default_agent": "Sobral"
+    },
+    "90170774473": {
+      "name": "Comercial",
+      "routing_type": "direct",
+      "agent": "Concer"
+    },
+    "90170774469": {
+      "name": "Projetos",
+      "routing_type": "direct",
+      "agent": "Erico"
+    },
+    "90170774466": {
+      "name": "Gestão",
+      "routing_type": "direct",
+      "agent": "Falconi"
+    },
+    "90170774468": {
+      "name": "Produtos",
+      "routing_type": "direct",
+      "agent": "Jobs"
+    },
+    "90170774467": {
+      "name": "Gente & Cultura",
+      "routing_type": "direct",
+      "agent": "Lolly"
+    }
+  },
+
+  "agents": {
+    "Sobral":      { "file": "Sobral.md",      "status": "active",  "domain": "Tráfego Pago" },
+    "Ogilvy":      { "file": "Ogilvy.md",      "status": "pending", "domain": "Copy & Conteúdo" },
+    "Kizo":        { "file": "Kizo.md",         "status": "pending", "domain": "Social Media" },
+    "LandingPage": { "file": "LandingPage.md",  "status": "pending", "domain": "Landing Pages" },
+    "Concer":      { "file": "Concer.md",       "status": "pending", "domain": "Comercial & Vendas" },
+    "Erico":       { "file": "Erico.md",        "status": "pending", "domain": "Projetos & Lançamentos" },
+    "Falconi":     { "file": "Falconi.md",      "status": "pending", "domain": "Gestão & Operações" },
+    "Jobs":        { "file": "Jobs.md",         "status": "pending", "domain": "Produtos & CS" },
+    "Lolly":       { "file": "Lolly.md",        "status": "pending", "domain": "Gente & Cultura" }
+  }
+}
