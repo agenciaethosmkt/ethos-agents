@@ -4,10 +4,11 @@
   "meta": {
     "model": "claude-opus-4-6",
     "claude_user_id": 101151431,
-    "trigger_status": "em andamento",
+    "idempotency_tag": "agente-processado",
+    "intent_tag": "para-agente",
     "completion_status": "em revisão",
     "missing_info_status": "em alteração & ajustes",
-    "idempotency_tag": "agente-processado"
+    "trigger": "data de vencimento + responsável = Claude + tag para-agente"
   },
 
   "spaces": {
@@ -61,12 +62,12 @@
   "agents": {
     "Sobral":      { "file": "Sobral.md",      "status": "active",  "domain": "Tráfego Pago" },
     "Ogilvy":      { "file": "Ogilvy.md",      "status": "pending", "domain": "Copy & Conteúdo" },
-    "Kizo":        { "file": "Kizo.md",         "status": "pending", "domain": "Social Media" },
-    "LandingPage": { "file": "LandingPage.md",  "status": "pending", "domain": "Landing Pages" },
-    "Concer":      { "file": "Concer.md",       "status": "pending", "domain": "Comercial & Vendas" },
-    "Erico":       { "file": "Erico.md",        "status": "pending", "domain": "Projetos & Lançamentos" },
-    "Falconi":     { "file": "Falconi.md",      "status": "pending", "domain": "Gestão & Operações" },
-    "Jobs":        { "file": "Jobs.md",         "status": "pending", "domain": "Produtos & CS" },
-    "Lolly":       { "file": "Lolly.md",        "status": "pending", "domain": "Gente & Cultura" }
+    "Kizo":        { "file": "Kizo.md",        "status": "pending", "domain": "Social Media" },
+    "LandingPage": { "file": "LandingPage.md", "status": "pending", "domain": "Landing Pages" },
+    "Concer":      { "file": "Concer.md",      "status": "pending", "domain": "Comercial & Vendas" },
+    "Erico":       { "file": "Erico.md",       "status": "pending", "domain": "Projetos & Lançamentos" },
+    "Falconi":     { "file": "Falconi.md",     "status": "pending", "domain": "Gestão & Operações" },
+    "Jobs":        { "file": "Jobs.md",        "status": "pending", "domain": "Produtos & CS" },
+    "Lolly":       { "file": "Lolly.md",       "status": "pending", "domain": "Gente & Cultura" }
   }
 }
