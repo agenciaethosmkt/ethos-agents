@@ -8,55 +8,112 @@
     "intent_tag": "para-agente",
     "completion_status": "em revisão",
     "missing_info_status": "em alteração & ajustes",
-    "trigger": "data de vencimento + responsável = Claude + tag para-agente"
+    "trigger": "data de vencimento + responsável = Claude + tag para-agente",
+    "log_list": "Agente: Log de Execuções",
+    "log_list_location": "Gestão → Processos & POPs → Agente: Log de Execuções"
   },
 
   "spaces": {
+
     "90170774471": {
       "name": "Marketing",
       "routing_type": "by_folder",
       "folder_routing": {
-        "Performance & Growth":  "Sobral",
-        "Gestão de Campanhas":   "Sobral",
-        "Automações":            "Sobral",
-        "Estratégia":            "Sobral",
+        "Performance & Growth":  "routing_by_list",
         "Produção de Conteúdo":  "routing_by_list",
-        "Desenvolvimento Web":   "LandingPage"
+        "Desenvolvimento Web":   "LandingPage",
+        "Estratégia":            "routing_by_list",
+        "Automações":            "Sobral"
       },
       "list_routing": {
-        "Processo de Copywriting":              "Ogilvy",
-        "Linha Editorial":                      "Ogilvy",
-        "Processo de Design & Criação":         "Kizo",
-        "Agendamentos, Publicações & Disparos": "Kizo",
-        "Planejamentos & Cronogramas":          "Kizo"
+        "Gestão de Campanhas":                      "Sobral",
+        "Laboratório de Criativos":                 "Sobral",
+        "Gestão de Públicos":                       "Sobral",
+        "Processo de Otimização":                   "Sobral",
+        "Investimentos e Métricas":                 "Sobral",
+        "Trackeamento & Dashboards":                "Sobral",
+        "Máquina de Ideias":                        "Ogilvy",
+        "Planejamentos & Cronogramas":              "Kizo",
+        "Processo de Copywriting":                  "Ogilvy",
+        "Processo de Design & Criação":             "Kizo",
+        "Agendamentos, Publicações & Distribuição": "Kizo",
+        "Linha Editorial":                          "Ogilvy",
+        "Estratégias & Funis":                      "Sobral"
       },
       "default_agent": "Sobral"
     },
+
     "90170774473": {
       "name": "Comercial",
-      "routing_type": "direct",
-      "agent": "Concer"
+      "routing_type": "by_folder",
+      "folder_routing": {
+        "Consultorias, Serviços & Mentorias": "Concer",
+        "CRM":                                "Concer",
+        "Treinamentos, Cursos & Templates":   "Concer",
+        "Raio X de Vendas":                   "Concer"
+      },
+      "default_agent": "Concer"
     },
+
     "90170774469": {
       "name": "Projetos",
-      "routing_type": "direct",
-      "agent": "Erico"
+      "routing_type": "by_folder",
+      "folder_routing": {
+        "Gestão de Projetos":          "Erico",
+        "[Lançamentos]":               "Erico",
+        "[Lançamentos Interno]":       "Erico",
+        "Projetos [Growth]":           "Erico",
+        "Projetos [Perpétuos Pro]":    "Erico",
+        "Gestão de Implementações":    "Erico",
+        "Gestão de Mentorias [Black]": "Erico",
+        "Projetos [Connect]":          "Erico",
+        "Projetos [Flow]":             "Erico",
+        "Projetos [Business]":         "Erico"
+      },
+      "default_agent": "Erico"
     },
+
     "90170774466": {
       "name": "Gestão",
-      "routing_type": "direct",
-      "agent": "Falconi"
+      "routing_type": "by_folder",
+      "folder_routing": {
+        "Agenda":             "Falconi",
+        "Processos & POPs":   "Falconi",
+        "Jurídico":           "Falconi",
+        "Financeiro":         "Falconi",
+        "Objetivos & Metas":  "Falconi",
+        "Administrativo":     "Falconi"
+      },
+      "default_agent": "Falconi"
     },
+
     "90170774468": {
       "name": "Produtos",
-      "routing_type": "direct",
-      "agent": "Jobs"
+      "routing_type": "by_folder",
+      "folder_routing": {
+        "Novos Produtos":        "Jobs",
+        "Sucesso do Cliente":    "Jobs",
+        "Gestão de Produtos":    "Jobs",
+        "Produção de Aulas":     "Jobs",
+        "Gestão de Entregas":    "Jobs",
+        "Gamificação":           "Jobs"
+      },
+      "default_agent": "Jobs"
     },
+
     "90170774467": {
       "name": "Gente & Cultura",
-      "routing_type": "direct",
-      "agent": "Lolly"
+      "routing_type": "by_folder",
+      "folder_routing": {
+        "Relatório de Desempenho": "Lolly",
+        "Base Militar":            "Lolly",
+        "Área Educacional":        "Lolly",
+        "Objetivos & Metas":       "Lolly",
+        "Área de Recrutamento":    "Lolly"
+      },
+      "default_agent": "Lolly"
     }
+
   },
 
   "agents": {
