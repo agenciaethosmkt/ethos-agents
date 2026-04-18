@@ -1,0 +1,60 @@
+name: pipeline-relatorio-performance
+description: Pipeline de geração de relatório de performance de campanhas pagas
+
+steps:
+  - id: step-01
+    file: steps/step-01-validar-entrada.md
+    name: Validar Entrada
+    agent: analista
+
+  - id: step-02
+    file: steps/step-02-identificar-campanhas.md
+    name: Identificar Campanhas
+    agent: analista
+
+  - id: step-03
+    file: steps/step-03-puxar-dados-meta.md
+    name: Puxar Dados Meta Ads
+    agent: analista
+    condition: "plataforma inclui meta"
+
+  - id: step-04
+    file: steps/step-04-puxar-dados-google.md
+    name: Puxar Dados Google Ads
+    agent: analista
+    condition: "plataforma inclui google"
+
+  - id: step-05
+    file: steps/step-05-interpretar-metricas.md
+    name: Interpretar Métricas
+    agent: analista
+
+  - id: step-06
+    file: steps/step-06-redigir-relatorio.md
+    name: Redigir Relatório
+    agent: redator
+    outputFile: output/relatorio.md
+
+  - id: step-07
+    file: steps/step-07-revisar-relatorio.md
+    name: Revisar Relatório
+    agent: revisor
+
+    checkpoints:
+      - id: aprovar-relatorio
+        name: Aprovação do Relatório
+        approver: renato
+        description: >
+          Renato revisa o relatório antes de enviar ao cliente.
+          Pode editar linguagem, ajustar números ou solicitar análises extras.
+
+  - id: step-08
+    file: steps/step-08-entregar-relatorio.md
+    name: Entregar Relatório
+    agent: analista
+
+flow:
+  on_checkpoint_approved:
+    aprovar-relatorio: step-08
+  on_checkpoint_rejected:
+    aprovar-relatorio: step-06  # volta para redação com feedback

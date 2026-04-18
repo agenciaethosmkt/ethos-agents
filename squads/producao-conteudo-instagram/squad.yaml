@@ -1,0 +1,69 @@
+name: "Produção de Conteúdo Instagram"
+code: "producao-conteudo-instagram"
+description: >
+  Produz peças de conteúdo para Instagram do briefing ao agendamento.
+  O agente é acionado em até 3 fases distintas para a mesma task:
+  Copy (Etapa 3), Design (Etapa 4) e Agendamento (Etapa 5).
+  Cada ativação executa apenas a fase correspondente à lista atual da task.
+icon: "📸"
+version: "1.0.0"
+created: "2026-04-17"
+
+memory: "_memory/memories.md"
+
+platform: "Instagram (Feed, Reels, Stories, Carrossel)"
+
+skills:
+  - 16-instagram-copy
+  - 18-instagram-roteiro
+  - 19-instagram-hashtag
+  - 22-conteudo-script-video
+  - canva
+  - instagram-carousel
+
+data:
+  - pipeline/data/formatos.md
+  - pipeline/data/skills-por-formato.md
+  - pipeline/data/quality-criteria.md
+  - pipeline/data/anti-patterns.md
+
+agents:
+  - id: ogilvy
+    name: "Ogilvy"
+    icon: "✍️"
+    custom: agents/ogilvy.custom.md
+
+  - id: designer
+    name: "Designer"
+    icon: "🎨"
+    custom: agents/designer.custom.md
+
+  - id: revisor
+    name: "Revisor"
+    icon: "✅"
+    custom: agents/revisor.custom.md
+
+pipeline:
+  entry: pipeline/pipeline.yaml
+
+output_dir: output/
+
+trigger:
+  lists:
+    - name: "Processo de Copywriting"
+      id: "901701992017"
+      phase: "copy"
+    - name: "Processo de Design & Criação"
+      id: "901701992018"
+      phase: "design"
+    - name: "Agendamentos, Publicações & Disparos"
+      id: "901701992019"
+      phase: "agendamento"
+  condition: "responsável = Claude (101151431) + tag para-agente"
+
+clickup_lists:
+  copywriting: "901701992017"
+  design: "901701992018"
+  agendamento: "901701992019"
+  maquina_de_ideias: "901701992020"
+  planejamentos: "901701992021"

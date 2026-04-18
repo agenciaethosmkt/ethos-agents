@@ -1,0 +1,54 @@
+name: Onboarding de Cliente
+squad: sucesso-cliente
+version: 1.0
+
+steps:
+  - id: 01-validar-entrada
+    file: steps/01-validar-entrada.md
+    persona: atendimento
+    checkpoint: false
+
+  - id: 02-gerar-agendamento
+    file: steps/02-gerar-agendamento.md
+    persona: redator
+    checkpoint: false
+    depends_on: 01-validar-entrada
+
+  - id: 03-preparar-reuniao
+    file: steps/03-preparar-reuniao.md
+    persona: atendimento
+    checkpoint: true
+    checkpoint_note: CS realiza a reunião com o cliente — retorna com anotações para o próximo step
+    depends_on: 02-gerar-agendamento
+
+  - id: 04-documentar-onboarding
+    file: steps/04-documentar-onboarding.md
+    persona: redator
+    checkpoint: false
+    depends_on: 03-preparar-reuniao
+
+  - id: 05-proximos-passos
+    file: steps/05-proximos-passos.md
+    persona: redator
+    checkpoint: false
+    depends_on: 04-documentar-onboarding
+
+  - id: 06-passagem-interna
+    file: steps/06-passagem-interna.md
+    persona: atendimento
+    checkpoint: false
+    depends_on: 05-proximos-passos
+
+error_handling:
+  missing_fields: comentar campos faltantes → status em alteração & ajustes → abortar
+  step_failure: retry 1x → se falhar: comentar erro → escalar para humano
+
+sla:
+  agendamento: 2 dias úteis após pagamento
+  reuniao: 2 dias úteis após agendamento
+  passagem_interna: mesmo dia ou 1 dia útil após reunião
+
+exception_eletricistas:
+  note: Persona "Eletricistas" não tem reunião — formulário enviado por automação
+  skip_steps: [02-gerar-agendamento, 03-preparar-reuniao]
+  resume_at: 04-documentar-onboarding

@@ -1,0 +1,50 @@
+name: "Pipeline — Roteiro de Reels"
+version: "1.0.0"
+created: "2026-04-18"
+squad: "roteiro-reels"
+
+description: >
+  Pipeline linear em fase única. Produz o roteiro completo do Reels com
+  estrutura cena a cena, narração, texto na tela e notas de produção.
+  Revisão humana ocorre via ClickUp após entrega (status "Em Revisão").
+
+steps:
+  - id: step-01
+    name: "Ler Briefing do Reels"
+    type: agent
+    agent: ogilvy
+    file: steps/step-01-ler-briefing.md
+
+  - id: step-02
+    name: "Definir Estrutura e Gancho"
+    type: agent
+    agent: ogilvy
+    file: steps/step-02-definir-estrutura.md
+    depends_on: step-01
+
+  - id: step-03
+    name: "Escrever Roteiro"
+    type: agent
+    agent: ogilvy
+    file: steps/step-03-escrever-roteiro.md
+    depends_on: step-02
+
+  - id: step-04
+    name: "Revisar Roteiro"
+    type: agent
+    agent: revisor
+    file: steps/step-04-revisar-roteiro.md
+    depends_on: step-03
+
+  - id: step-05
+    name: "Entregar Roteiro"
+    type: agent
+    agent: ogilvy
+    file: steps/step-05-entregar-roteiro.md
+    depends_on: step-04
+
+output:
+  artifacts:
+    - output/briefing.yaml
+    - output/estrutura.md
+    - output/roteiro.md

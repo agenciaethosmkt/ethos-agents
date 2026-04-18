@@ -1,0 +1,34 @@
+name: sucesso-cliente
+domain: Customer Success & Onboarding
+c_level: Jobs
+space: Produtos (90170774468)
+folders:
+  - Sucesso do Cliente
+  - Gestão de Entregas
+
+personas:
+  - maya
+  - redator
+
+skills:
+  - 51-ops-cs
+  - 23-whatsapp-atendimento
+  - 52-ops-documentacao
+  - clickup-project-manager
+
+pipeline: pipeline/pipeline.yaml
+
+memory:
+  file: _memory/memories.md
+  runs: _memory/runs.md
+
+trigger:
+  source: Make (automação de pagamento) → ClickUp task criada no folder Sucesso do Cliente
+  condition: responsável = Claude (101151431) + tag para-agente
+
+output:
+  - Mensagem de agendamento (WhatsApp) postada como comentário na task
+  - Documento de resumo do onboarding criado no ClickUp
+  - Mensagem de próximos passos (briefing + acessos + setup) postada como comentário
+  - Task atualizada: status em revisão, assignee → creator
+  - Log de execução registrado

@@ -1,0 +1,53 @@
+name: "Roteiro de Reels"
+code: "roteiro-reels"
+description: >
+  Produz o roteiro completo de um Reels do briefing ao script cena a cena.
+  Inclui gancho dos primeiros 3 segundos, estrutura de cenas com narração e
+  texto na tela, CTA final, sugestão de áudio e notas de produção.
+  Ativado quando uma task de Copywriting tem formato = Reels.
+icon: "🎬"
+version: "1.0.0"
+created: "2026-04-18"
+
+memory: "_memory/memories.md"
+
+platform: "Instagram Reels (9:16 vertical)"
+
+skills:
+  - 18-instagram-roteiro
+  - 22-conteudo-script-video
+  - 44-design-briefing
+
+data:
+  - pipeline/data/estrutura-reels.md
+  - pipeline/data/quality-criteria.md
+  - pipeline/data/anti-patterns.md
+
+agents:
+  - id: ogilvy
+    name: "Ogilvy"
+    icon: "✍️"
+    custom: agents/ogilvy.custom.md
+
+  - id: revisor
+    name: "Revisor"
+    icon: "✅"
+    custom: agents/revisor.custom.md
+
+pipeline:
+  entry: pipeline/pipeline.yaml
+
+output_dir: output/
+
+trigger:
+  lists:
+    - name: "Processo de Copywriting"
+      id: "901701992017"
+      condition: "formato == Reels"
+  condition: "responsável = Claude (101151431) + tag para-agente + formato = Reels"
+
+clickup_lists:
+  copywriting: "901701992017"
+  design: "901701992018"
+  agendamento: "901701992019"
+  maquina_de_ideias: "901701992020"

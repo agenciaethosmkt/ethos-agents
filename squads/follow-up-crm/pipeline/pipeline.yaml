@@ -1,0 +1,97 @@
+name: pipeline-follow-up-crm
+description: Pipeline do ciclo comercial — qualificação, follow-up, fechamento e renovação
+
+steps:
+  - id: step-01
+    file: steps/step-01-detectar-fase.md
+    name: Detectar Fase
+    agent: analista-comercial
+
+  # === FASE A: QUALIFICAÇÃO ===
+  - id: step-02
+    file: steps/step-02-analisar-lead.md
+    name: Analisar Lead
+    agent: analista-comercial
+    condition: "fase == qualificacao"
+
+  - id: step-03
+    file: steps/step-03-entregar-qualificacao.md
+    name: Entregar Qualificação
+    agent: analista-comercial
+    condition: "fase == qualificacao"
+
+  # === FASE B: FOLLOW-UP ===
+  - id: step-04
+    file: steps/step-04-ler-contexto-reuniao.md
+    name: Ler Contexto da Reunião
+    agent: analista-comercial
+    condition: "fase == followup"
+
+  - id: step-05
+    file: steps/step-05-redigir-followup.md
+    name: Redigir Follow-up
+    agent: redator
+    condition: "fase == followup"
+    outputFile: output/followup.md
+
+    checkpoints:
+      - id: aprovar-followup
+        name: Aprovação da Mensagem de Follow-up
+        approver: renato
+        description: >
+          Renato revisa e aprova a mensagem antes do envio.
+          Pode editar o texto ou solicitar reescrita.
+
+  - id: step-06
+    file: steps/step-06-entregar-followup.md
+    name: Entregar Follow-up
+    agent: redator
+    condition: "fase == followup"
+
+  # === FASE C: FECHAMENTO ===
+  - id: step-07
+    file: steps/step-07-consolidar-briefing.md
+    name: Consolidar Briefing do Cliente
+    agent: analista-comercial
+    condition: "fase == fechamento"
+
+  - id: step-08
+    file: steps/step-08-entregar-fechamento.md
+    name: Entregar Briefing e Registrar CRM
+    agent: analista-comercial
+    condition: "fase == fechamento"
+
+  # === FASE D: RENOVAÇÃO ===
+  - id: step-09
+    file: steps/step-09-analisar-renovacao.md
+    name: Analisar Histórico para Renovação
+    agent: analista-comercial
+    condition: "fase == renovacao"
+
+  - id: step-10
+    file: steps/step-10-redigir-renovacao.md
+    name: Redigir Abordagem de Renovação
+    agent: redator
+    condition: "fase == renovacao"
+    outputFile: output/renovacao.md
+
+    checkpoints:
+      - id: aprovar-renovacao
+        name: Aprovação da Mensagem de Renovação
+        approver: renato
+        description: >
+          Renato revisa a abordagem de renovação antes do envio ao cliente.
+
+  - id: step-11
+    file: steps/step-11-entregar-renovacao.md
+    name: Entregar Abordagem de Renovação
+    agent: analista-comercial
+    condition: "fase == renovacao"
+
+flow:
+  on_checkpoint_approved:
+    aprovar-followup: step-06
+    aprovar-renovacao: step-11
+  on_checkpoint_rejected:
+    aprovar-followup: step-05
+    aprovar-renovacao: step-10

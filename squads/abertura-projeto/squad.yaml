@@ -1,0 +1,45 @@
+name: "Acompanhamento de Projeto"
+code: "abertura-projeto"
+description: >
+  Monitora o progresso dos marcos de projetos Ethos (Connect, Flow, Growth).
+  Ativado no due_date de tasks nos marcos onde Claude é responsável + tag para-agente.
+  Lê todos os marcos relacionados, analisa status de cada task e devolve relatório
+  de acompanhamento para revisão humana.
+icon: "📊"
+version: "1.0.0"
+created: "2026-04-18"
+mode: "gestao"
+
+memory: "_memory/memories.md"
+
+platform: "ClickUp"
+format: "project-report"
+
+skills:
+  - clickup-project-manager
+  - 41-negocios-kpis
+
+data:
+  - pipeline/data/formato-relatorio.md
+  - pipeline/data/criterios-por-marco.md
+  - pipeline/data/anti-patterns.md
+
+agents:
+  - id: analista-setup
+    name: "Analista de Projetos"
+    icon: "🔍"
+    custom: agents/analista-setup.custom.md
+
+  - id: redator
+    name: "Redator de Relatório"
+    icon: "📝"
+    custom: agents/redator.custom.md
+
+pipeline:
+  entry: pipeline/pipeline.yaml
+
+output_dir: output/
+
+callers:
+  - agent: Falconi
+    trigger: "Due date de task em marco de projeto (Kickoff / Ativação / Monitoramento) com Claude responsável + tag para-agente"

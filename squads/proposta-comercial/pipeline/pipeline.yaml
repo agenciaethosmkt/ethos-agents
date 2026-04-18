@@ -1,0 +1,50 @@
+name: pipeline-proposta-comercial
+description: Pipeline de geração de proposta comercial personalizada
+
+steps:
+  - id: step-01
+    file: steps/step-01-coletar-diagnostico.md
+    name: Coletar Diagnóstico do Lead
+    agent: analista-comercial
+
+  - id: step-02
+    file: steps/step-02-selecionar-case.md
+    name: Selecionar Case de Prova Social
+    agent: analista-comercial
+
+  - id: step-03
+    file: steps/step-03-redigir-conteudo.md
+    name: Redigir Conteúdo da Proposta
+    agent: redator
+    outputFile: output/conteudo-proposta.md
+
+  - id: step-04
+    file: steps/step-04-gerar-proposta-gamma.md
+    name: Gerar Proposta no Gamma
+    agent: designer
+    outputFile: output/proposta-link.md
+
+  - id: step-05
+    file: steps/step-05-revisar-proposta.md
+    name: Revisar Proposta
+    agent: analista-comercial
+
+    checkpoints:
+      - id: aprovar-proposta
+        name: Aprovação da Proposta
+        approver: renato
+        description: >
+          Renato revisa a proposta antes do envio ao lead.
+          Pode editar conteúdo, ajustar valores ou solicitar reescrita.
+          Após aprovar, a proposta é enviada e o lead é notificado.
+
+  - id: step-06
+    file: steps/step-06-entregar-proposta.md
+    name: Entregar Proposta ao Lead
+    agent: analista-comercial
+
+flow:
+  on_checkpoint_approved:
+    aprovar-proposta: step-06
+  on_checkpoint_rejected:
+    aprovar-proposta: step-03

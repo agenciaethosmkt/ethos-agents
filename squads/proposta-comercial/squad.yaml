@@ -1,0 +1,47 @@
+name: proposta-comercial
+description: Gera propostas comerciais personalizadas para leads qualificados usando Canva (design_type proposal → publicar como site). Coleta diagnóstico via ClickUp + transcrições Tactiq do Google Drive.
+version: "1.0"
+caller: concer
+
+agents:
+  - id: analista-comercial
+    name: Analista Comercial
+    file: agents/analista-comercial.custom.md
+    role: Coleta diagnóstico completo (ClickUp + Tactiq), seleciona case de prova social e revisa coerência da proposta.
+
+  - id: redator
+    name: Redator Comercial
+    file: agents/redator.custom.md
+    role: Escreve o conteúdo da proposta — diagnóstico personalizado, resultados esperados, pilares do método, prova social, investimento.
+
+  - id: designer
+    name: Designer de Proposta
+    file: agents/designer.custom.md
+    role: Gera a proposta visual no Canva (proposal) com brand kit da Ethos e entrega link para Renato publicar como site.
+
+skills:
+  - 27-comercial-proposta
+  - 39-negocios-proposta
+  - 37-negocios-diagnostico
+
+trigger:
+  lists:
+    - name: "Sessão Estratégica 30m"
+      id: "901701992042"
+    - name: "Aplicação Direta"
+      id: "901701992043"
+    - name: "Consultorias, Serviços & Mentorias"
+      id: ""
+
+  condition: >
+    task.status == "reunião realizada" OR task.status == "negociação de valores"
+
+idempotency:
+  tag: agente-proposta-processado
+
+pipeline: pipeline/pipeline.yaml
+
+notes:
+  interim: "Canva design_type=proposal → Renato publica como site (canva.site)"
+  target: "Template Next.js em proposta.ethosmarketing.com.br/[slug] — ver project_proposta_interativa.md"
+  cases: "Squad documentacao-cases planejado para gerar prova social automática — ver project_squad_cases_clientes.md"

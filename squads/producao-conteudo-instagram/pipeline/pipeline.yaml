@@ -1,0 +1,90 @@
+name: "Pipeline — Produção de Conteúdo Instagram"
+version: "1.0.0"
+created: "2026-04-17"
+squad: "producao-conteudo-instagram"
+
+description: >
+  Pipeline em 3 fases. O step-01 detecta a fase pela lista atual da task
+  e desvia para o bloco correspondente (Copy, Design ou Agendamento).
+  Cada ativação do agente executa apenas uma fase — a revisão humana
+  acontece entre fases via ClickUp (status "Em Revisão" → Renato aprova).
+
+steps:
+  - id: step-01
+    name: "Detectar Fase"
+    type: agent
+    agent: ogilvy
+    file: steps/step-01-detectar-fase.md
+
+  # ── FASE A: COPY ──────────────────────────────────────────
+  - id: step-02
+    name: "Ler Briefing"
+    type: agent
+    agent: ogilvy
+    file: steps/step-02-ler-briefing.md
+    depends_on: step-01
+    condition: "fase == copy"
+
+  - id: step-03
+    name: "Escrever Copy"
+    type: agent
+    agent: ogilvy
+    file: steps/step-03-escrever-copy.md
+    depends_on: step-02
+    condition: "fase == copy"
+
+  - id: step-04
+    name: "Revisão de Copy"
+    type: agent
+    agent: revisor
+    file: steps/step-04-revisao-copy.md
+    depends_on: step-03
+    condition: "fase == copy"
+
+  - id: step-05
+    name: "Entregar Copy"
+    type: agent
+    agent: ogilvy
+    file: steps/step-05-entregar-copy.md
+    depends_on: step-04
+    condition: "fase == copy"
+
+  # ── FASE B: DESIGN ────────────────────────────────────────
+  - id: step-06
+    name: "Criar Design"
+    type: agent
+    agent: designer
+    file: steps/step-06-criar-design.md
+    depends_on: step-01
+    condition: "fase == design"
+
+  - id: step-07
+    name: "Revisão de Design"
+    type: agent
+    agent: revisor
+    file: steps/step-07-revisao-design.md
+    depends_on: step-06
+    condition: "fase == design"
+
+  - id: step-08
+    name: "Entregar Design"
+    type: agent
+    agent: designer
+    file: steps/step-08-entregar-design.md
+    depends_on: step-07
+    condition: "fase == design"
+
+  # ── FASE C: AGENDAMENTO ───────────────────────────────────
+  - id: step-09
+    name: "Configurar Agendamento"
+    type: agent
+    agent: ogilvy
+    file: steps/step-09-agendamento.md
+    depends_on: step-01
+    condition: "fase == agendamento"
+
+output:
+  artifacts:
+    - output/briefing.yaml
+    - output/copy.md
+    - output/design-url.md

@@ -1,0 +1,59 @@
+name: "Fábrica de Criativos"
+code: "criativo-ads"
+description: >
+  Transforma um briefing de campanha em um criativo de anúncio completo —
+  ângulo estratégico, copy validado e design visual produzido no Canva.
+  Compartilhado entre Kizo (Conteúdo) e Sobral (Tráfego Pago).
+icon: "🎨"
+version: "1.0.0"
+created: "2026-04-17"
+mode: "alta-performance"
+
+memory: "_memory/memories.md"
+
+platform: "Meta Ads / Google Ads"
+format: "ad-creative"
+
+skills:
+  - canva
+  - 03-meta-copy-criativo
+  - 07-google-copy
+  - 46-design-prompts-ia
+
+data:
+  - pipeline/data/brief-format.md
+  - pipeline/data/quality-criteria.md
+  - pipeline/data/anti-patterns.md
+  - pipeline/data/formatos-ads.md
+
+agents:
+  - id: estrategista
+    name: "Estrategista Criativo"
+    icon: "🧠"
+    custom: agents/estrategista.custom.md
+
+  - id: ogilvy
+    name: "Ogilvy"
+    icon: "✍️"
+    custom: agents/ogilvy.custom.md
+
+  - id: designer
+    name: "Designer de Criativos"
+    icon: "🎨"
+    custom: agents/designer.custom.md
+
+  - id: revisor
+    name: "Revisor"
+    icon: "✅"
+    custom: agents/revisor.custom.md
+
+pipeline:
+  entry: pipeline/pipeline.yaml
+
+output_dir: output/
+
+callers:
+  - agent: Sobral
+    trigger: "TIPO 4 — Brief de criativo detectado em task de otimização"
+  - agent: Kizo
+    trigger: "Folder Laboratório de Criativos + tag para-agente"

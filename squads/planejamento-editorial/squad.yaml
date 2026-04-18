@@ -1,0 +1,56 @@
+name: "Planejamento Editorial"
+code: "planejamento-editorial"
+description: >
+  Gera o calendário editorial mensal do cliente do briefing ao calendário
+  pronto no ClickUp. Pesquisa tendências, distribui os posts no mês por pilar
+  e formato, revisa cobertura e cria as tasks na Máquina de Ideias.
+icon: "📅"
+version: "1.0.0"
+created: "2026-04-18"
+
+memory: "_memory/memories.md"
+
+platform: "Instagram (Feed, Reels, Stories, Carrossel)"
+
+skills:
+  - 17-instagram-calendario
+  - 19-instagram-hashtag
+  - 20-conteudo-pauta-seo
+  - 33-marketing-concorrentes
+  - 34-marketing-seo
+  - clickup-content-planning
+
+data:
+  - pipeline/data/pilares-padrao.md
+  - pipeline/data/formatos-e-frequencia.md
+  - pipeline/data/quality-criteria.md
+  - pipeline/data/anti-patterns.md
+
+agents:
+  - id: ogilvy
+    name: "Ogilvy"
+    icon: "✍️"
+    custom: agents/ogilvy.custom.md
+
+  - id: revisor
+    name: "Revisor"
+    icon: "✅"
+    custom: agents/revisor.custom.md
+
+pipeline:
+  entry: pipeline/pipeline.yaml
+
+output_dir: output/
+
+trigger:
+  lists:
+    - name: "Planejamentos & Cronogramas"
+      id: "901701992021"
+      phase: "planejamento"
+  condition: "responsável = Claude (101151431) + tag para-agente"
+
+clickup_lists:
+  planejamentos: "901701992021"
+  maquina_de_ideias: "901701992020"
+  copywriting: "901701992017"
+  design: "901701992018"

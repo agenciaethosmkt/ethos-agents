@@ -1,0 +1,41 @@
+name: "Pipeline de Desenvolvimento Web"
+version: "1.0.0"
+description: >
+  Recebe a task de desenvolvimento web, identifica o tipo (criar / otimizar / rastrear),
+  verifica pré-requisitos, executa o trabalho e entrega revisão no ClickUp.
+
+steps:
+  - id: step-01-briefing
+    name: "Ler Briefing e Identificar Tipo"
+    agent: estrategista
+    file: steps/step-01-briefing.md
+    output: tipo_task, pré-requisitos OK/faltando, contexto do cliente
+
+  - id: step-02-prereqs
+    name: "Verificar Pré-requisitos"
+    agent: estrategista
+    file: steps/step-02-prereqs.md
+    depends_on: step-01-briefing
+    checkpoint: true
+    output: copy aprovado, identidade visual, objetivo e CTA confirmados — ou subtask criada
+
+  - id: step-03-executar
+    name: "Executar Desenvolvimento"
+    agent: desenvolvedor
+    file: steps/step-03-executar.md
+    depends_on: step-02-prereqs
+    output: página estruturada / código / especificação técnica / diagnóstico
+
+  - id: step-04-checklist
+    name: "Checklist de Qualidade"
+    agent: revisor
+    file: steps/step-04-checklist.md
+    depends_on: step-03-executar
+    output: checklist técnico validado, ajustes identificados
+
+  - id: step-05-entregar
+    name: "Entregar no ClickUp"
+    agent: desenvolvedor
+    file: steps/step-05-entregar.md
+    depends_on: step-04-checklist
+    output: comentário postado, status "em revisão", assignee devolvido ao humano

@@ -1,0 +1,39 @@
+name: relatorio-performance
+description: Gera relatórios de performance de campanhas pagas (Meta Ads e Google Ads) para clientes da Ethos.
+version: "1.0"
+caller: sobral
+
+agents:
+  - id: analista
+    name: Analista de Performance
+    file: agents/analista.custom.md
+    role: Puxa dados das APIs de Meta Ads e Google Ads, interpreta métricas e identifica insights.
+
+  - id: redator
+    name: Redator de Relatório
+    file: agents/redator.custom.md
+    role: Transforma os dados brutos em linguagem clara para o cliente, com narrativa orientada a decisão.
+
+  - id: revisor
+    name: Revisor
+    file: agents/revisor.custom.md
+    role: Gate de qualidade — valida dados, linguagem e completude antes da entrega.
+
+skills:
+  - meta-ads-api     # acesso à API do Meta via Bash/Python
+  - google-ads-api   # acesso à Google Ads API (se disponível)
+
+trigger:
+  lists:
+    - name: "Investimentos e Métricas"
+      id: ""          # preencher com ID da lista após mapeamento
+    - name: "Processo de Otimização"
+      id: ""          # tarefas de otimização também podem gerar relatório
+
+  condition: >
+    task.status == "Em Análise" OR task.status == "Aguardando Relatório"
+
+idempotency:
+  tag: agente-relatorio-processado
+
+pipeline: pipeline/pipeline.yaml

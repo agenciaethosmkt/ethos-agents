@@ -1,0 +1,57 @@
+name: "Diagnóstico de Vendas (Raio X)"
+code: "diagnostico-vendas"
+description: >
+  Gera o diagnóstico comercial completo de um prospect ou cliente a partir
+  dos dados coletados na reunião de diagnóstico. Analisa cada etapa do funil,
+  identifica gargalos, benchmarks do setor e recomenda a solução Ethos mais
+  adequada. Ativado por tasks no folder "Raio X de Vendas" com status "Em Andamento".
+icon: "🔍"
+version: "1.0.0"
+created: "2026-04-18"
+
+memory: "_memory/memories.md"
+
+platform: "ClickUp (Comercial)"
+
+skills:
+  - 30-marketing-funil
+  - 32-marketing-persona
+  - 33-marketing-concorrentes
+  - 37-negocios-diagnostico
+  - 42-negocios-forecasting
+
+data:
+  - pipeline/data/funil-etapas.md
+  - pipeline/data/quality-criteria.md
+  - pipeline/data/anti-patterns.md
+  - pipeline/data/solucoes-ethos.md
+
+agents:
+  - id: analista-comercial
+    name: "Analista Comercial"
+    icon: "📊"
+    custom: agents/analista-comercial.custom.md
+
+  - id: pesquisador
+    name: "Pesquisador"
+    icon: "🔎"
+    custom: agents/pesquisador.custom.md
+
+  - id: revisor
+    name: "Revisor"
+    icon: "✅"
+    custom: agents/revisor.custom.md
+
+pipeline:
+  entry: pipeline/pipeline.yaml
+
+output_dir: output/
+
+trigger:
+  folder: "Raio X de Vendas"
+  space_id: "90170774473"
+  condition: "status = Em Andamento + responsável = Claude (101151431) + tag para-agente"
+
+clickup_lists:
+  raio_x: "Raio X de Vendas"
+  crm: "CRM"

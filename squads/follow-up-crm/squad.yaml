@@ -1,0 +1,53 @@
+name: follow-up-crm
+description: Automatiza qualificação de leads, follow-up pós-reunião, briefing de fechamento e abordagem de renovação no ciclo comercial da Ethos.
+version: "1.0"
+caller: concer
+
+agents:
+  - id: analista-comercial
+    name: Analista Comercial
+    file: agents/analista-comercial.custom.md
+    role: Analisa fit do lead com critérios da Ethos, consolida briefing no fechamento e prepara briefing de renovação.
+
+  - id: redator
+    name: Redator Comercial
+    file: agents/redator.custom.md
+    role: Redige mensagens de follow-up e abordagem de renovação personalizadas para WhatsApp.
+
+skills:
+  - 23-whatsapp-atendimento
+  - 26-whatsapp-crm
+  - 29-comercial-follow-up
+  - 32-marketing-persona
+
+trigger:
+  lists:
+    - name: "Sessão Estratégica 30m"
+      id: "901701992042"
+    - name: "Aplicação Direta"
+      id: "901701992043"
+    - name: "Processo de Renovação"
+      id: "901701992039"
+
+  phases:
+    - id: qualificacao
+      condition: "task.status == 'qualificação'"
+      description: "Lead respondeu — analisar fit e sugerir próximos passos"
+
+    - id: followup
+      condition: "task.status == 'follow up'"
+      description: "1 dia pós-reunião — redigir mensagem personalizada para colher decisão"
+
+    - id: fechamento
+      condition: "task.status == 'negócio fechado'"
+      description: "Consolidar briefing e registrar dados do novo cliente no CRM"
+
+    - id: renovacao
+      condition: "task.list.name == 'Processo de Renovação' AND task.status == 'para renovar'"
+      description: "Contrato vencendo — redigir abordagem personalizada de renovação"
+
+idempotency:
+  tag: agente-crm-processado
+  scope: por-fase
+
+pipeline: pipeline/pipeline.yaml

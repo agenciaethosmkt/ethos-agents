@@ -1,0 +1,48 @@
+name: documentacao-cases
+description: Gera cases de clientes automaticamente a partir de planilhas de leads e dados de campanha no Google Drive + histórico de anúncios (Meta/Google Ads). Alimenta a prova social do squad proposta-comercial.
+version: "1.0"
+caller: concer
+
+agents:
+  - id: analista
+    name: Analista de Resultados
+    file: agents/analista.custom.md
+    role: Busca e processa planilhas do cliente no Drive, calcula métricas consolidadas (leads, conversão, receita, CPL) e extrai dados de campanha.
+
+  - id: redator
+    name: Redator de Case
+    file: agents/redator.custom.md
+    role: Transforma os dados em narrativa de case (antes → processo → resultado) pronta para usar em propostas.
+
+trigger:
+  type: manual
+  description: >
+    Acionado por Renato via task no ClickUp em Consultorias, Serviços & Mentorias
+    com status "documentar case" ou tag "gerar-case".
+  lists:
+    - name: "Consultorias, Serviços & Mentorias"
+      id: ""
+
+  condition: "task.tags includes 'gerar-case'"
+
+data_sources:
+  primary:
+    - tipo: planilha_leads
+      padrao_nome: "[CLIENTE] - LEADS"
+      colunas: [Data, Nome, Canal, Serviço, Status, Valor da Venda]
+    - tipo: planilha_campanha
+      padrao_nome: "[CLIENTE] - Dados Campanha"
+      colunas: [Day, Campaign, Ad Group, Clicks, Impressions, CTR, CPC, Cost, Conversions]
+  secondary:
+    - Meta Ads API (via Bash/Python — se credenciais disponíveis)
+    - Google Ads API (via Bash/Python — se credenciais disponíveis)
+
+output:
+  - Google Drive: pasta /Cases Ethos/[Segmento]/[Cliente]/
+  - ClickUp: documento linkado à task do cliente em Gestão de Clientes
+  - _memory/cases-index.md: índice para o squad proposta-comercial buscar
+
+idempotency:
+  tag: agente-case-gerado
+
+pipeline: pipeline/pipeline.yaml

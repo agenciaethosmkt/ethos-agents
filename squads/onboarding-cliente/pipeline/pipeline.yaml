@@ -1,0 +1,75 @@
+name: "Pipeline — Onboarding de Cliente"
+version: "1.0.0"
+created: "2026-04-17"
+squad: "onboarding-cliente"
+
+description: >
+  Pipeline completo de onboarding: da validação de entrada até a passagem interna.
+  Contempla o fluxo padrão (com reunião) e a exceção da persona Eletricistas (só formulário).
+
+steps:
+  - id: step-01
+    name: "Validar Entrada"
+    type: agent
+    agent: maya
+    file: steps/step-01-validar-entrada.md
+
+  - id: step-02
+    name: "Agendar Reunião"
+    type: agent
+    agent: maya
+    file: steps/step-02-agendar-reuniao.md
+    depends_on: step-01
+
+  - id: step-03
+    name: "Aprovação do Agendamento"
+    type: checkpoint
+    file: steps/step-03-aprovar-agendamento.md
+    depends_on: step-02
+
+  - id: step-04
+    name: "Preparar Reunião"
+    type: agent
+    agent: maya
+    file: steps/step-04-preparar-reuniao.md
+    depends_on: step-03
+
+  - id: step-05
+    name: "Registrar Reunião"
+    type: checkpoint
+    file: steps/step-05-registrar-reuniao.md
+    depends_on: step-04
+
+  - id: step-06
+    name: "Próximos Passos"
+    type: agent
+    agent: redator
+    file: steps/step-06-proximos-passos.md
+    depends_on: step-05
+
+  - id: step-07
+    name: "Passagem Interna"
+    type: agent
+    agent: redator
+    file: steps/step-07-passagem-interna.md
+    depends_on: step-06
+
+  - id: step-08
+    name: "Entregar no ClickUp"
+    type: agent
+    agent: maya
+    file: steps/step-08-entregar.md
+    depends_on: step-07
+
+checkpoints:
+  - step-03  # Aprovar mensagem WhatsApp antes de enviar
+  - step-05  # Humano preenche notas da reunião realizada
+
+output:
+  artifacts:
+    - output/validacao.yaml
+    - output/mensagem-agendamento.md
+    - output/briefing-reuniao.md
+    - output/notas-reuniao.md
+    - output/proximos-passos.md
+    - output/passagem-interna.md

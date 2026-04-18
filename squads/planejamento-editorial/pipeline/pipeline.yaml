@@ -1,0 +1,50 @@
+name: "Pipeline — Planejamento Editorial"
+version: "1.0.0"
+created: "2026-04-18"
+squad: "planejamento-editorial"
+
+description: >
+  Pipeline linear em fase única. Gera o calendário editorial mensal completo
+  e cria as tasks no ClickUp. Revisão humana acontece via ClickUp após entrega
+  (status "Em Revisão" → Renato aprova antes das tasks entrarem em produção).
+
+steps:
+  - id: step-01
+    name: "Ler Briefing do Mês"
+    type: agent
+    agent: ogilvy
+    file: steps/step-01-ler-briefing.md
+
+  - id: step-02
+    name: "Pesquisar Contexto e Tendências"
+    type: agent
+    agent: ogilvy
+    file: steps/step-02-pesquisar-contexto.md
+    depends_on: step-01
+
+  - id: step-03
+    name: "Gerar Pauta Editorial"
+    type: agent
+    agent: ogilvy
+    file: steps/step-03-gerar-pauta.md
+    depends_on: step-02
+
+  - id: step-04
+    name: "Revisar Calendário"
+    type: agent
+    agent: revisor
+    file: steps/step-04-revisar-calendario.md
+    depends_on: step-03
+
+  - id: step-05
+    name: "Entregar Calendário"
+    type: agent
+    agent: ogilvy
+    file: steps/step-05-entregar-calendario.md
+    depends_on: step-04
+
+output:
+  artifacts:
+    - output/briefing.yaml
+    - output/calendario.md
+    - output/tasks-criadas.yaml

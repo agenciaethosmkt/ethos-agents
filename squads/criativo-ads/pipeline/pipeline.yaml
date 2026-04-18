@@ -1,0 +1,83 @@
+name: "Pipeline — Fábrica de Criativos"
+version: "1.0.0"
+created: "2026-04-17"
+squad: "criativo-ads"
+
+description: >
+  Pipeline completo para transformar um briefing em criativo de anúncio publicável.
+  4 checkpoints garantem aprovação humana em cada decisão crítica antes de avançar.
+
+steps:
+  - id: step-01
+    name: "Briefing"
+    type: checkpoint
+    file: steps/step-01-briefing.md
+
+  - id: step-02
+    name: "Ângulos Criativos"
+    type: agent
+    agent: estrategista
+    file: steps/step-02-angulos.md
+    depends_on: step-01
+
+  - id: step-03
+    name: "Aprovação do Ângulo"
+    type: checkpoint
+    file: steps/step-03-aprovar-angulo.md
+    depends_on: step-02
+
+  - id: step-04
+    name: "Copy do Anúncio"
+    type: agent
+    agent: ogilvy
+    file: steps/step-04-copy.md
+    depends_on: step-03
+
+  - id: step-05
+    name: "Aprovação do Copy"
+    type: checkpoint
+    file: steps/step-05-aprovar-copy.md
+    depends_on: step-04
+
+  - id: step-06
+    name: "Design Visual"
+    type: agent
+    agent: designer
+    file: steps/step-06-design.md
+    depends_on: step-05
+
+  - id: step-07
+    name: "Aprovação do Design"
+    type: checkpoint
+    file: steps/step-07-aprovar-design.md
+    depends_on: step-06
+
+  - id: step-08
+    name: "Revisão Final"
+    type: agent
+    agent: revisor
+    file: steps/step-08-revisao.md
+    depends_on: step-07
+
+  - id: step-09
+    name: "Entrega no ClickUp"
+    type: agent
+    agent: estrategista
+    file: steps/step-09-entregar.md
+    depends_on: step-08
+
+checkpoints:
+  - step-01  # Briefing: cliente, plataforma, formato, objetivo
+  - step-03  # Seleção de ângulo criativo
+  - step-05  # Aprovação do copy
+  - step-07  # Aprovação do design
+
+output:
+  artifacts:
+    - output/briefing.yaml
+    - output/angulos.md
+    - output/angulo-selecionado.yaml
+    - output/copy.md
+    - output/design-canva-url.md
+    - output/revisao-final.md
+    - output/entrega.md

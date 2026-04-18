@@ -1,0 +1,50 @@
+name: "Pipeline — Diagnóstico de Vendas"
+version: "1.0.0"
+created: "2026-04-18"
+squad: "diagnostico-vendas"
+
+description: >
+  Pipeline linear em fase única. Pesquisa contexto do prospect, analisa
+  o funil de vendas por etapa, identifica gargalos e recomenda solução Ethos.
+  Diagnóstico entregue na descrição da task. Revisão humana via ClickUp.
+
+steps:
+  - id: step-01
+    name: "Ler Briefing do Diagnóstico"
+    type: agent
+    agent: analista-comercial
+    file: steps/step-01-ler-briefing.md
+
+  - id: step-02
+    name: "Pesquisar Contexto e Setor"
+    type: agent
+    agent: pesquisador
+    file: steps/step-02-pesquisar-contexto.md
+    depends_on: step-01
+
+  - id: step-03
+    name: "Gerar Diagnóstico"
+    type: agent
+    agent: analista-comercial
+    file: steps/step-03-gerar-diagnostico.md
+    depends_on: step-02
+
+  - id: step-04
+    name: "Revisar Diagnóstico"
+    type: agent
+    agent: revisor
+    file: steps/step-04-revisar-diagnostico.md
+    depends_on: step-03
+
+  - id: step-05
+    name: "Entregar Diagnóstico"
+    type: agent
+    agent: analista-comercial
+    file: steps/step-05-entregar-diagnostico.md
+    depends_on: step-04
+
+output:
+  artifacts:
+    - output/briefing.yaml
+    - output/contexto.md
+    - output/diagnostico.md

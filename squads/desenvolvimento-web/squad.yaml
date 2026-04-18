@@ -1,0 +1,54 @@
+name: "Desenvolvimento Web"
+code: "desenvolvimento-web"
+description: >
+  Cria, otimiza e configura landing pages e páginas web para clientes Ethos.
+  Stack principal: Next.js 15 + Tailwind 4 + Framer Motion + shadcn/ui, deploy na Vercel.
+  Ativado por tasks no folder Desenvolvimento Web (Marketing) com Claude responsável + tag para-agente.
+icon: "🌐"
+version: "1.0.0"
+created: "2026-04-18"
+mode: "alta-performance"
+
+memory: "_memory/memories.md"
+
+platform: "Next.js / Vercel / WordPress"
+format: "landing-page"
+
+skills:
+  - agente-landing-page
+  - 14-lancamento-pagina
+  - 44-design-briefing
+  - 47-design-ui-ux
+  - 46-design-prompts-ia
+  - 34-marketing-seo
+
+data:
+  - pipeline/data/stack-tecnica.md
+  - pipeline/data/checklist-entrega.md
+  - pipeline/data/tipos-pagina.md
+  - pipeline/data/anti-patterns.md
+
+agents:
+  - id: estrategista
+    name: "Estrategista de Conversão"
+    icon: "🧠"
+    custom: agents/estrategista.custom.md
+
+  - id: desenvolvedor
+    name: "Desenvolvedor Web"
+    icon: "💻"
+    custom: agents/desenvolvedor.custom.md
+
+  - id: revisor
+    name: "Revisor de Qualidade"
+    icon: "✅"
+    custom: agents/revisor.custom.md
+
+pipeline:
+  entry: pipeline/pipeline.yaml
+
+output_dir: output/
+
+callers:
+  - agent: LaryPages
+    trigger: "Task no folder Desenvolvimento Web + Claude responsável + tag para-agente"

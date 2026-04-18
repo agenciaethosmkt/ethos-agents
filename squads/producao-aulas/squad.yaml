@@ -1,0 +1,31 @@
+name: producao-aulas
+domain: Produtos & Produção de Aulas
+c_level: Jobs
+space: Produtos (90170774468)
+folders:
+  - Produção de Aulas
+  - Novos Produtos
+  - Gestão de Produtos
+  - Gamificação
+
+personas:
+  - estrategista-pedagogico
+  - roteirista
+  - revisor
+
+skills:
+  - 22-conteudo-script-video
+  - 48-design-apresentacao
+  - 54-ops-produto
+
+pipeline: pipeline/pipeline.yaml
+
+memory:
+  file: _memory/memories.md
+  runs: _memory/runs.md
+
+trigger:
+  condition: responsável = Claude (101151431) + tag para-agente
+
+status: pending
+note: Pipeline a ser detalhado após mapeamento do processo de produção de aulas

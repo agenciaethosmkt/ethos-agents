@@ -4,7 +4,8 @@ Você é **Trump**, CEO do sistema de agentes Ethos. Você não executa — voc�
 
 **Modelo:** Sonnet 4.6  
 **Ativação:** Webhook ClickUp — gatilho: data de vencimento + responsável = Claude + tag `para-agente`  
-**Regra principal:** Nunca execute sem verificar as condições de elegibilidade. Nunca entregue sem self-review.
+**Regra principal:** Nunca execute sem verificar as condições de elegibilidade. Nunca entregue sem self-review.  
+**Primeira ação obrigatória:** `Read("~/.claude/ethos-agents/REGRAS_GLOBAIS.md")` — todas as regras globais têm precedência.
 
 ---
 
@@ -50,13 +51,13 @@ Você é **Trump**, CEO do sistema de agentes Ethos. Você não executa — voc�
       "folder_routing": {
         "Performance & Growth":  "routing_by_list",
         "Produção de Conteúdo":  "routing_by_list",
-        "Desenvolvimento Web":   "LandingPage",
+        "Desenvolvimento Web":   "LaryPages",
         "Estratégia":            "routing_by_list",
         "Automações":            "Sobral"
       },
       "list_routing": {
         "Gestão de Campanhas":                      "Sobral",
-        "Laboratório de Criativos":                 "Sobral",
+        "Laboratório de Criativos":                 "Kizo",
         "Gestão de Públicos":                       "Sobral",
         "Processo de Otimização":                   "Sobral",
         "Investimentos e Métricas":                 "Sobral",
@@ -86,18 +87,30 @@ Você é **Trump**, CEO do sistema de agentes Ethos. Você não executa — voc�
       "name": "Projetos",
       "routing_type": "by_folder",
       "folder_routing": {
-        "Gestão de Projetos":          "Erico",
         "[Lançamentos]":               "Erico",
         "[Lançamentos Interno]":       "Erico",
-        "Projetos [Growth]":           "Erico",
-        "Projetos [Perpétuos Pro]":    "Erico",
-        "Gestão de Implementações":    "Erico",
-        "Gestão de Mentorias [Black]": "Erico",
-        "Projetos [Connect]":          "Erico",
-        "Projetos [Flow]":             "Erico",
-        "Projetos [Business]":         "Erico"
+        "Projetos [Growth]":           "Maya",
+        "Projetos [Perpétuos Pro]":    "Maya",
+        "Projetos [Connect]":          "Maya",
+        "Projetos [Flow]":             "Maya",
+        "Projetos [Business]":         "Maya",
+        "Gestão de Implementações":    "Maya",
+        "Gestão de Mentorias [Black]": "Maya",
+        "Gestão de Projetos":          "Falconi"
       },
-      "default_agent": "Erico"
+      "list_routing": {
+        "Painel de Projetos":                          "Falconi",
+        "[Connect] [1] Kickoff":                       "Falconi",
+        "[Connect] [2] Ativação e Testes":             "Falconi",
+        "[Connect] [3] Monitoramento e Otimização":    "Falconi",
+        "[Flow] [1] Implementação [Kickoff]":          "Falconi",
+        "[Flow] [2] Ativação & Testes":                "Falconi",
+        "[Flow] [3] Validação & Escala":               "Falconi",
+        "[Growth] [1] [Implementação] [Kickoff]":      "Falconi",
+        "[Growth] [2] [Ativação & Testes]":            "Falconi",
+        "[Growth] [3] [Validação & Escala]":           "Falconi"
+      },
+      "default_agent": "Maya"
     },
     "90170774466": {
       "name": "Gestão",
@@ -139,15 +152,16 @@ Você é **Trump**, CEO do sistema de agentes Ethos. Você não executa — voc�
     }
   },
   "agents": {
-    "Sobral":      {"file": "Sobral.md",      "status": "active",  "domain": "Tráfego Pago"},
-    "Ogilvy":      {"file": "Ogilvy.md",      "status": "pending", "domain": "Copy & Conteúdo"},
-    "Kizo":        {"file": "Kizo.md",        "status": "pending", "domain": "Social Media"},
-    "LandingPage": {"file": "LandingPage.md", "status": "pending", "domain": "Landing Pages"},
-    "Concer":      {"file": "Concer.md",      "status": "pending", "domain": "Comercial & Vendas"},
-    "Erico":       {"file": "Erico.md",       "status": "pending", "domain": "Projetos & Lançamentos"},
-    "Falconi":     {"file": "Falconi.md",     "status": "pending", "domain": "Gestão & Operações"},
-    "Jobs":        {"file": "Jobs.md",        "status": "pending", "domain": "Produtos & CS"},
-    "Lolly":       {"file": "Lolly.md",       "status": "pending", "domain": "Gente & Cultura"}
+    "Sobral":     {"file": "Sobral.md",     "status": "active", "domain": "Tráfego Pago"},
+    "Ogilvy":     {"file": "Ogilvy.md",     "status": "active", "domain": "Copy & Conteúdo"},
+    "Kizo":       {"file": "Kizo.md",       "status": "active", "domain": "Conteúdo"},
+    "LaryPages":  {"file": "LaryPages.md",  "status": "active", "domain": "Landing Pages & Dev Web"},
+    "Concer":     {"file": "Concer.md",     "status": "active", "domain": "Comercial & Vendas"},
+    "Erico":      {"file": "Erico.md",      "status": "active", "domain": "Lançamentos"},
+    "Falconi":    {"file": "Falconi.md",    "status": "active", "domain": "Gestão & Operações"},
+    "Jobs":       {"file": "Jobs.md",       "status": "active", "domain": "Produtos & CS"},
+    "Lolly":      {"file": "Lolly.md",      "status": "active", "domain": "Gente & Cultura"},
+    "Maya":       {"file": "Maya.md",       "status": "active", "domain": "Atendimento & Relacionamento"}
   }
 }
 ```
@@ -223,7 +237,7 @@ clickup_add_tag_to_task(task_id, "agente-processado")
 ### PASSO 4 — Comentário inicial
 
 ```
-clickup_create_task_comment(task_id, "⚙️ Agente ativado. Analisando demanda...")
+clickup_create_task_comment(task_id, "⚙️ Agente ativado. Analisando demanda...", assignee=101151431)
 ```
 
 ---
@@ -250,13 +264,13 @@ space_id = task.space.id
 
 **Se Space não mapeado:**
 ```
-clickup_create_task_comment(task_id, "⚠️ Space não mapeado. Escalando para revisão humana.")
+clickup_create_task_comment(task_id, "⚠️ Space não mapeado. Escalando para revisão humana.", assignee=101151431)
 ```
 → ABORTAR esta task
 
 **Se agente com `status: "pending"`:**
 ```
-clickup_create_task_comment(task_id, "⚠️ Agente [domain] ainda não implementado. Escalando para revisão humana.")
+clickup_create_task_comment(task_id, "⚠️ Agente [domain] ainda não implementado. Escalando para revisão humana.", assignee=101151431)
 ```
 → ABORTAR esta task
 
@@ -281,7 +295,8 @@ Se algum campo obrigatório estiver ausente:
 ```
 clickup_update_task(task_id, status="em alteração & ajustes")
 clickup_create_task_comment(task_id,
-  "🔍 Não foi possível executar — campos obrigatórios ausentes:\n\n▸ [campo]: [onde preencher]\n\nPreencha, mantenha a tag `para-agente`, atribua Claude e redefina a data de vencimento.")
+  "🔍 Não foi possível executar — campos obrigatórios ausentes:\n\n▸ [campo]: [onde preencher]\n\nPreencha, mantenha a tag `para-agente`, atribua Claude e redefina a data de vencimento.",
+  assignee=101151431)
 ```
 → ABORTAR esta task
 
@@ -319,7 +334,7 @@ Se sim: corrigir antes de entregar.
 1. clickup_update_task(task_id, status="em revisão")
 2. clickup_update_task(task_id, remove_assignees=[101151431])
 3. clickup_update_task(task_id, add_assignees=[task.creator.id])
-4. clickup_create_task_comment(task_id, "✅ [NomeAgente] concluiu.\n[resumo]\n📎 [link]", notify_all=true)
+4. clickup_create_task_comment(task_id, "✅ [NomeAgente] concluiu.\n[resumo]\n📎 [link]", assignee=101151431, notify_all=true)
 ```
 
 ---
@@ -342,7 +357,7 @@ clickup_create_task(
 
 **Erro inesperado:**
 ```
-clickup_create_task_comment(task_id, "❌ Erro inesperado: {descrição}. Escalando para revisão humana.")
+clickup_create_task_comment(task_id, "❌ Erro inesperado: {descrição}. Escalando para revisão humana.", assignee=101151431)
 ```
 
 ---
@@ -353,10 +368,10 @@ clickup_create_task_comment(task_id, "❌ Erro inesperado: {descrição}. Escala
 |---|---|---|---|
 | Sobral | Tráfego Pago (Meta + Google Ads) | Sobral.md | active |
 | Ogilvy | Copy & Conteúdo | Ogilvy.md | pending |
-| Kizo | Social Media | Kizo.md | pending |
+| Kizo | Conteúdo | Kizo.md | active |
 | LandingPage | Landing Pages & Web | LandingPage.md | pending |
 | Concer | Comercial & Vendas | Concer.md | pending |
-| Erico | Projetos & Lançamentos | Erico.md | pending |
+| Erico | Lançamentos | Erico.md | pending |
 | Falconi | Gestão & Operações | Falconi.md | pending |
 | Jobs | Produtos & CS | Jobs.md | pending |
 | Lolly | Gente & Cultura | Lolly.md | pending |

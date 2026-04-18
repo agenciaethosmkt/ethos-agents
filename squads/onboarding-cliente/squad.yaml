@@ -1,0 +1,51 @@
+name: "Onboarding de Cliente"
+code: "onboarding-cliente"
+description: >
+  Estrutura a entrada do novo cliente na operação da Ethos: valida pagamento,
+  agenda a reunião via WhatsApp, prepara o CS, documenta o onboarding e faz
+  a passagem interna completa para todas as áreas.
+icon: "🤝"
+version: "1.0.0"
+created: "2026-04-17"
+mode: "alta-performance"
+
+memory: "_memory/memories.md"
+
+platform: "ClickUp + WhatsApp + Google Drive"
+
+skills:
+  - 23-whatsapp-atendimento
+  - 51-ops-cs
+  - 52-ops-documentacao
+  - clickup-project-manager
+
+data:
+  - pipeline/data/mensagens-padrao.md
+  - pipeline/data/checklist-onboarding.md
+  - pipeline/data/pauta-reuniao.md
+  - pipeline/data/personas-clientes.md
+
+agents:
+  - id: maya
+    name: "Maya"
+    icon: "💬"
+    custom: agents/maya.custom.md
+
+  - id: redator
+    name: "Redator"
+    icon: "📝"
+    custom: agents/redator.custom.md
+
+pipeline:
+  entry: pipeline/pipeline.yaml
+
+output_dir: output/
+
+trigger:
+  source: "Make → pagamento confirmado → task criada no ClickUp (Projetos [Flow/Growth/Business/Connect])"
+  condition: "responsável = Claude (101151431) + tag para-agente"
+
+sla:
+  agendamento: "até 2 dias úteis após pagamento"
+  reuniao: "até 2 dias úteis após agendamento"
+  passagem_interna: "mesmo dia ou até 1 dia útil após reunião"

@@ -21,13 +21,13 @@
       "folder_routing": {
         "Performance & Growth":  "routing_by_list",
         "Produção de Conteúdo":  "routing_by_list",
-        "Desenvolvimento Web":   "LandingPage",
+        "Desenvolvimento Web":   "LaryPages",
         "Estratégia":            "routing_by_list",
         "Automações":            "Sobral"
       },
       "list_routing": {
         "Gestão de Campanhas":                      "Sobral",
-        "Laboratório de Criativos":                 "Sobral",
+        "Laboratório de Criativos":                 "Kizo",
         "Gestão de Públicos":                       "Sobral",
         "Processo de Otimização":                   "Sobral",
         "Investimentos e Métricas":                 "Sobral",
@@ -59,18 +59,30 @@
       "name": "Projetos",
       "routing_type": "by_folder",
       "folder_routing": {
-        "Gestão de Projetos":          "Erico",
         "[Lançamentos]":               "Erico",
         "[Lançamentos Interno]":       "Erico",
-        "Projetos [Growth]":           "Erico",
-        "Projetos [Perpétuos Pro]":    "Erico",
-        "Gestão de Implementações":    "Erico",
-        "Gestão de Mentorias [Black]": "Erico",
-        "Projetos [Connect]":          "Erico",
-        "Projetos [Flow]":             "Erico",
-        "Projetos [Business]":         "Erico"
+        "Projetos [Growth]":           "Maya",
+        "Projetos [Perpétuos Pro]":    "Maya",
+        "Projetos [Connect]":          "Maya",
+        "Projetos [Flow]":             "Maya",
+        "Projetos [Business]":         "Maya",
+        "Gestão de Implementações":    "Maya",
+        "Gestão de Mentorias [Black]": "Maya",
+        "Gestão de Projetos":          "Falconi"
       },
-      "default_agent": "Erico"
+      "list_routing": {
+        "Painel de Projetos":                    "Falconi",
+        "[Connect] [1] Kickoff":                 "Falconi",
+        "[Connect] [2] Ativação e Testes":       "Falconi",
+        "[Connect] [3] Monitoramento e Otimização": "Falconi",
+        "[Flow] [1] Implementação [Kickoff]":    "Falconi",
+        "[Flow] [2] Ativação & Testes":          "Falconi",
+        "[Flow] [3] Validação & Escala":         "Falconi",
+        "[Growth] [1] [Implementação] [Kickoff]": "Falconi",
+        "[Growth] [2] [Ativação & Testes]":      "Falconi",
+        "[Growth] [3] [Validação & Escala]":     "Falconi"
+      },
+      "default_agent": "Maya"
     },
 
     "90170774466": {
@@ -117,14 +129,15 @@
   },
 
   "agents": {
-    "Sobral":      { "file": "Sobral.md",      "status": "active",  "domain": "Tráfego Pago" },
-    "Ogilvy":      { "file": "Ogilvy.md",      "status": "pending", "domain": "Copy & Conteúdo" },
-    "Kizo":        { "file": "Kizo.md",        "status": "pending", "domain": "Social Media" },
-    "LandingPage": { "file": "LandingPage.md", "status": "pending", "domain": "Landing Pages" },
-    "Concer":      { "file": "Concer.md",      "status": "pending", "domain": "Comercial & Vendas" },
-    "Erico":       { "file": "Erico.md",       "status": "pending", "domain": "Projetos & Lançamentos" },
-    "Falconi":     { "file": "Falconi.md",     "status": "pending", "domain": "Gestão & Operações" },
-    "Jobs":        { "file": "Jobs.md",        "status": "pending", "domain": "Produtos & CS" },
-    "Lolly":       { "file": "Lolly.md",       "status": "pending", "domain": "Gente & Cultura" }
+    "Sobral":      { "file": "Sobral.md",      "status": "active", "domain": "Tráfego Pago",           "layer": "c-level" },
+    "Ogilvy":      { "file": "Ogilvy.md",      "status": "active", "domain": "Copy & Conteúdo",        "layer": "c-level" },
+    "Kizo":        { "file": "Kizo.md",        "status": "active", "domain": "Social Media",            "layer": "c-level" },
+    "LaryPages":   { "file": "LaryPages.md",   "status": "active", "domain": "Landing Pages & Dev Web", "layer": "c-level" },
+    "Concer":      { "file": "Concer.md",      "status": "active", "domain": "Comercial & Vendas",      "layer": "c-level" },
+    "Erico":       { "file": "Erico.md",       "status": "active", "domain": "Projetos & Lançamentos",  "layer": "c-level" },
+    "Falconi":     { "file": "Falconi.md",     "status": "active", "domain": "Gestão & Operações",      "layer": "c-level" },
+    "Jobs":        { "file": "Jobs.md",        "status": "active", "domain": "Produtos & CS",           "layer": "c-level" },
+    "Lolly":       { "file": "Lolly.md",       "status": "active", "domain": "Gente & Cultura",         "layer": "c-level" },
+    "Maya":        { "file": "Maya.md",        "status": "active", "domain": "Atendimento & Relacionamento", "layer": "persona", "note": "Persona transversal — usada por múltiplos squads" }
   }
 }
