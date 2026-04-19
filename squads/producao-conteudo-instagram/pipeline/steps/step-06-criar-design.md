@@ -32,12 +32,21 @@ clickup_get_task(task_id) → extrair:
 - Aplicar copy: headline na imagem + copy completa no campo "Legenda"
 - Exportar PNG ≤ 2MB
 
-### Carrossel (1080×1080 por slide)
-- Criar slides via `instagram-carousel` (HTML→PNG) ou Canva
-- Slide 1: capa com gancho visual forte
-- Slides intermediários: um ponto por slide
-- Slide final: CTA + perfil
-- Exportar cada slide como PNG ≤ 2MB
+### Carrossel (1080×1350 por slide) — USAR SEMPRE skill instagram-carousel
+
+1. Invocar a skill `/instagram-carousel` (não usar Canva para carrossel)
+2. Coletar antes de gerar:
+   - Brand name, @handle, cor primária (hex), logo, fonte, tom
+   - Formato de sequência: standard (7 slides), listicle, tutorial ou comparação
+3. Gerar preview HTML primeiro. Aguardar aprovação antes de exportar
+4. Após aprovação: exportar 7 slides como PNG 1080×1350px via Playwright
+   - `device_scale_factor = 1080/420 = 2.5714` (nunca mudar viewport para 1080)
+   - Esconder `.ig-header`, `.ig-dots`, `.ig-actions`, `.ig-caption` no export
+5. Regras obrigatórias de assets:
+   - Imagens de fundo: embedar como base64 via Python (`Path.write_text`)
+   - Logos: embedar como base64. Logo com fundo → usar container com cor da marca
+   - Nunca usar path relativo ou `background: url(filepath)` para imagens
+6. Output: 7 arquivos PNG em `output/slides/slide_1.png` … `slide_7.png`
 
 ### Stories (1080×1920)
 - Criar no Canva — proporção 9:16

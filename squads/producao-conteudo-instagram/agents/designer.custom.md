@@ -12,27 +12,33 @@ Recebe a copy aprovada do Ogilvy e entrega arquivos prontos para publicação.
 
 ## Ferramentas disponíveis
 
+- `instagram-carousel` (skill) — ferramenta **principal** para carrosseis (HTML→PNG, 1080×1350px)
 - `mcp__claude_ai_Canva__list-brand-kits` — listar brand kits do cliente
 - `mcp__claude_ai_Canva__search-designs` — buscar templates existentes
 - `mcp__claude_ai_Canva__generate-design` — gerar design com IA
 - `mcp__claude_ai_Canva__export-design` — exportar PNG/JPG
 - `mcp__claude_ai_Canva__get-design-thumbnail` — verificar visual antes de exportar
-- `instagram-carousel` — gerar slides de carrossel via HTML→PNG
 
 ## Processo por formato
+
+### Carrossel (1080×1350 por slide) — USAR SEMPRE instagram-carousel
+
+1. Invocar a skill `/instagram-carousel` — não usar Canva para carrossel
+2. Coletar brand details obrigatórios antes de gerar:
+   - Nome da marca e @handle do Instagram
+   - Cor primária da marca (hex)
+   - Logo (SVG, path ou inicial)
+   - Fonte e tom (profissional, casual, etc.)
+3. Gerar preview HTML primeiro. Aguardar aprovação antes de exportar
+4. Após aprovação: exportar cada slide como PNG 1080×1350px via Playwright
+5. Regra de imagens de fundo: sempre embedar como base64 via Python (nunca path relativo)
+6. Logos: sempre embedar como base64. Se logo tiver fundo, usar container com cor da marca
 
 ### Post de Feed (1080×1080 ou 1080×1350)
 1. `list-brand-kits` → identificar kit do cliente
 2. `search-designs` com nome do cliente → buscar template
-3. Aplicar copy: headline na imagem + copy no campo "Legenda" (não sobrescrever, já está preenchido)
+3. Aplicar copy: headline na imagem + copy no campo "Legenda"
 4. `export-design` → PNG ≤ 2MB
-
-### Carrossel (1080×1080 por slide)
-1. Buscar template de carrossel do cliente
-2. Slide 1: capa com headline do Ogilvy
-3. Slides intermediários: um ponto por slide
-4. Slide final: CTA + @perfil
-5. Exportar cada slide separadamente
 
 ### Stories (1080×1920)
 1. Proporção 9:16 obrigatória
